@@ -1,55 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
+import React, {useEffect, useState} from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import axios from "axios";
+import {Route, Routes} from "react-router-dom";
+import HomePage from "./components/home/HomePage";
+import DefaultLayout from "./components/container/DefaultLayout";
+import LoginPage from "./components/auth/login/LoginPage";
+import AdminLayout from "./components/adminn/container/AdminLayout";
+import AdminDashboard from "./components/adminn/dashboard/AdminDashboard";
+import CategoryListPage from "./components/adminn/category/list/CategoryListPage";
+import CategoryCreatePage from "./components/adminn/category/create/CategoryCreatePage";
+import CategoryEditPage from "./components/adminn/category/edit/CategoryEditPage";
 
-
-interface ICategoryItem {
-  id: number;
-  name: string;
-  image: string;
-  description: string;
-}
 
 function App() {
-  const [list, setList] = useState<ICategoryItem[]>([]);
-  useEffect(() => {
-    axios.get<ICategoryItem[]>("http://laravel.pv125.com/api/category")
-      .then((resp) => {
-        //console.log("Categories", resp.data);
-        setList(resp.data);
-      });
-  }, []);
-  return (
-    <>
-      <div className='container'>
-        <h1 className='text-center'>Список Категорій</h1>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Назва</th>
-              <th scope="col">Фото</th>
-              <th scope="col">Опис</th>
-            </tr>
-          </thead>
-          <tbody>
-            {list.map((c) => {
-              return (
-                <tr key={c.id}>
-                  <th scope="row">{c.id}</th>
-                  <td>{c.name}</td>
-                  <td>{c.image}</td>
-                  <td>{c.description}</td>
-                </tr>
-              );
-            })}
+    return (
+        <>
+            <Routes>
+                <Route path="/" element={<DefaultLayout/>}>
+                    <Route index element={<HomePage/>}/>
+                    <Route path="login" element={<LoginPage/>}/>
+                </Route>
 
-          </tbody>
-        </table>
-      </div>
-    </>
-  );
+                <Route path={"/admin"} element={<AdminLayout/>}>
+                    <Route index element={<AdminDashboard/>}/>
+                    <Route path="category">
+                        <Route index element={<CategoryListPage/>}/>
+                        <Route path="create" element={<CategoryCreatePage/>}/>
+                        <Route path="edit">
+                            <Route path=":id" element={<CategoryEditPage/>}/>
+                        </Route>
+                    </Route>
+                </Route>
+            </Routes>
+        </>
+    );
 }
 
 export default App;
