@@ -22,7 +22,8 @@ if(localStorage.token) {
         type: AuthUserActionType.LOGIN_USER,
         payload: {
             email: user.email,
-            name: user.name
+            name: user.name,
+            role: user.role
         }
     });
 }
