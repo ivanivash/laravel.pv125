@@ -11,11 +11,13 @@ import AdminDashboard from "./components/adminn/dashboard/AdminDashboard";
 import CategoryListPage from "./components/adminn/category/list/CategoryListPage";
 import CategoryCreatePage from "./components/adminn/category/create/CategoryCreatePage";
 import CategoryEditPage from "./components/adminn/category/edit/CategoryEditPage";
+import Loader from "./components/common/loader/Loader";
 
 
 function App() {
     return (
         <>
+        <Loader/>
             <Routes>
                 <Route path="/" element={<DefaultLayout />}>
                     <Route index element={<HomePage />} />
