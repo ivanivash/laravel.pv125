@@ -4,7 +4,7 @@ export interface IsLoadingState {
 export enum IsLoadingActionTypes {
     SET_LOADING = "SET_LOADING"
 }
-interface SetLoadingAction{
+interface SetLoadingAction {
     type: IsLoadingActionTypes.SET_LOADING;
     payload: boolean
 }
@@ -17,10 +17,10 @@ const initState: IsLoadingState = {
 export const IsLoadingReducer = (
     state: IsLoadingState = initState,
     action: IsLoadingTypes
-) : IsLoadingState => {
-    switch(action.type) {
+): IsLoadingState => {
+    switch (action.type) {
         case IsLoadingActionTypes.SET_LOADING: {
-            return{...state, isLoading: action.payload};
+            return { ...state, isLoading: action.payload };
         }
     }
     return state;
